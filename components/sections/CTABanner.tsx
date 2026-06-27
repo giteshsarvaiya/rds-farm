@@ -10,6 +10,7 @@ const WHATSAPP_MESSAGE = encodeURIComponent(
 );
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
 
+/** Full-width CTA banner with WhatsApp and inquiry buttons on a forest green background. */
 export default function CTABanner() {
   return (
     <section

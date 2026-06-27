@@ -64,6 +64,7 @@ const offers = [
   },
 ];
 
+/** Renders the offers page listing all active packages with WhatsApp inquiry CTAs. */
 export default function OffersPage() {
   return (
     <>

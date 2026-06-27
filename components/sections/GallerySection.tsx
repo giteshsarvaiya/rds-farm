@@ -32,6 +32,7 @@ const galleryImages = [
   },
 ];
 
+/** Gallery glimpse section with an asymmetric image grid and link to full gallery. */
 export default function GallerySection() {
   return (
     <section

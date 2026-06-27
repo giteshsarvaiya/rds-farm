@@ -106,10 +106,12 @@ const posts = [
   },
 ];
 
+/** Generates static paths for all blog post slugs at build time. */
 export function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }));
 }
 
+/** Generates SEO metadata for each individual blog post page. */
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = posts.find((p) => p.slug === slug);
@@ -120,6 +122,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+/** Renders an individual blog post with body content, CTA, and related posts. */
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = posts.find((p) => p.slug === slug);

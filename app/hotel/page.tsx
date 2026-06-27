@@ -40,6 +40,7 @@ const amenities = [
   { icon: "🚗", label: "Airport Transfer" },
 ];
 
+/** Renders the RD's Hotel landing page with rooms, restaurant, amenities, and gallery. */
 export default function HotelPage() {
   return (
     <>

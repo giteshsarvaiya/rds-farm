@@ -39,6 +39,7 @@ export const metadata: Metadata = {
   },
 };
 
+/** Root layout wrapping every page with shared fonts, metadata, header, and footer. */
 export default function RootLayout({
   children,
 }: {

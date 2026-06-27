@@ -30,6 +30,7 @@ const experiences = [
   },
 ];
 
+/** Experiences section with a 2x2 grid of full-bleed image tiles. */
 export default function ExperiencesSection() {
   return (
     <section

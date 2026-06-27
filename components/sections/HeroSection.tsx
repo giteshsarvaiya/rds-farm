@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
+/** Full-screen hero section with background image, headline, and animated scroll chevron. */
 export default function HeroSection() {
   return (
     <section

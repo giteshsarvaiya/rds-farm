@@ -23,6 +23,7 @@ const testimonials = [
   },
 ];
 
+/** Testimonials section with stacked guest quotes and gold quotation marks. */
 export default function TestimonialsSection() {
   return (
     <section

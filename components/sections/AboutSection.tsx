@@ -8,6 +8,7 @@ const stats = [
   { value: "Est. 2010", label: "Founded" },
 ];
 
+/** About section with brand story and animated stats row. */
 export default function AboutSection() {
   return (
     <section

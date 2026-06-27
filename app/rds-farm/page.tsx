@@ -17,6 +17,7 @@ const eventTypes = [
   { label: "Family Gatherings", icon: "👨‍👩‍👧‍👦" },
 ];
 
+/** Renders the RDS Farm landing page with event types, combined venue note, and gallery. */
 export default function RDSFarmPage() {
   return (
     <>

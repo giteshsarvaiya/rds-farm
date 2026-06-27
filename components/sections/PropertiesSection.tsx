@@ -35,6 +35,7 @@ const properties = [
   },
 ];
 
+/** Properties section displaying the three venue cards with links. */
 export default function PropertiesSection() {
   return (
     <section

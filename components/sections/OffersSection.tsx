@@ -40,6 +40,7 @@ const offers = [
   },
 ];
 
+/** Offers section showing active packages with WhatsApp inquiry CTAs. */
 export default function OffersSection() {
   return (
     <section

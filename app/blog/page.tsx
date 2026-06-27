@@ -64,6 +64,7 @@ const posts = [
   },
 ];
 
+/** Renders the blog index page with a grid of all post cards. */
 export default function BlogPage() {
   return (
     <>

@@ -38,6 +38,7 @@ const WHATSAPP_MESSAGE = encodeURIComponent(
 );
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
 
+/** Site footer with navigation links, property details, contact info, and social icons. */
 export default function Footer() {
   return (
     <footer

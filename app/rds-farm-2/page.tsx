@@ -8,6 +8,7 @@ export const metadata = {
     "RDS Farm 2 — adjacent to RDS Farm, ideal for large-scale weddings and events in Ahmedabad.",
 };
 
+/** Renders the RDS Farm 2 landing page with combined venue highlight and gallery. */
 export default function RDSFarm2Page() {
   return (
     <>

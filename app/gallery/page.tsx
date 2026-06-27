@@ -21,6 +21,7 @@ const images = [
   { src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80", property: "RDS Farm 2", category: "farm2" },
 ];
 
+/** Renders the gallery index page with images grouped by property. */
 export default function GalleryPage() {
   return (
     <>
