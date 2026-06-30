@@ -4,44 +4,25 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
-const WHATSAPP_NUMBER = "919876543210";
-const WHATSAPP_MESSAGE = encodeURIComponent(
-  "Hello! I'd like to inquire about your current offers."
-);
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
-
-const offers = [
-  {
-    title: "Wedding Season Special",
-    description:
-      "Celebrate your most important day with our comprehensive wedding package — from mandap to reception, every detail thoughtfully arranged across our expansive farm venues.",
-    highlights: ["Customised mandap decor", "Catering for 200–2000 guests", "Dedicated event coordinator"],
-    image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80",
-    alt: "Elegant wedding celebration at RDS Farm",
-    tag: "Weddings",
-  },
-  {
-    title: "Corporate Retreat Package",
-    description:
-      "Inspire your team in a refreshing setting. Our corporate retreat package offers premium meeting facilities, team activities, and rejuvenating accommodations.",
-    highlights: ["Conference rooms with AV setup", "Team-building activities", "Group dining & recreation"],
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
-    alt: "Corporate meeting and retreat space at RD's Hotel",
-    tag: "Corporate",
-  },
-  {
-    title: "Festive Dining Experience",
-    description:
-      "Indulge in seasonal menus crafted by our chefs during festival seasons. Private dining rooms available for intimate family gatherings and celebrations.",
-    highlights: ["Seasonal festive menus", "Private dining rooms", "Live music & cultural performances"],
-    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
-    alt: "Fine dining experience at RD's Hotel restaurant",
-    tag: "Dining",
-  },
-];
+export type Offer = {
+  _id: string;
+  title: string;
+  description?: string;
+  imageUrl: string;
+  property: string;
+  ctaText?: string;
+  validUntil?: string;
+};
 
 /** Offers section showing active packages with WhatsApp inquiry CTAs. */
-export default function OffersSection() {
+export default function OffersSection({
+  offers,
+  whatsappNumber,
+}: {
+  offers: Offer[];
+  whatsappNumber: string;
+}) {
+  const WHATSAPP_URL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hello! I'd like to inquire about your current offers.")}`;
   return (
     <section
       style={{
@@ -152,8 +133,8 @@ export default function OffersSection() {
                   }}
                 >
                   <Image
-                    src={offer.image}
-                    alt={offer.alt}
+                    src={offer.imageUrl}
+                    alt={offer.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 380px"
                     style={{ objectFit: "cover" }}
@@ -175,7 +156,7 @@ export default function OffersSection() {
                       borderRadius: "1px",
                     }}
                   >
-                    {offer.tag}
+                    {offer.property}
                   </div>
                 </div>
 
@@ -210,39 +191,6 @@ export default function OffersSection() {
                   >
                     {offer.description}
                   </p>
-                  <ul
-                    style={{
-                      listStyle: "none",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "0.375rem",
-                    }}
-                  >
-                    {offer.highlights.map((h) => (
-                      <li
-                        key={h}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.625rem",
-                          fontFamily: "var(--font-inter), Inter, system-ui, sans-serif",
-                          fontSize: "0.8125rem",
-                          color: "rgba(245,239,228,0.65)",
-                        }}
-                      >
-                        <span
-                          style={{
-                            width: "4px",
-                            height: "4px",
-                            borderRadius: "50%",
-                            backgroundColor: "#B8976A",
-                            flexShrink: 0,
-                          }}
-                        />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
                   <div>
                     <a
                       href={WHATSAPP_URL}
@@ -276,7 +224,7 @@ export default function OffersSection() {
                       }}
                     >
                       <MessageCircle size={14} />
-                      Get in Touch
+                      {offer.ctaText || "Get in Touch"}
                     </a>
                   </div>
                 </div>

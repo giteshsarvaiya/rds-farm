@@ -5,38 +5,18 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-const properties = [
-  {
-    name: "RD's Hotel",
-    tagline: "Hotel & Restaurant · Ahmedabad",
-    description:
-      "A sophisticated 3-star retreat featuring 50+ elegantly appointed rooms, a celebrated restaurant, and versatile conference spaces.",
-    image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80",
-    alt: "RD's Hotel — luxury hotel exterior in Ahmedabad",
-    href: "/hotel",
-  },
-  {
-    name: "RDS Farm",
-    tagline: "Resort & Party Plot · Ahmedabad",
-    description:
-      "A breathtaking farm venue where open skies meet lush landscapes — the perfect backdrop for weddings, receptions, and intimate gatherings.",
-    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
-    alt: "RDS Farm — scenic resort and party plot in Ahmedabad",
-    href: "/rds-farm",
-  },
-  {
-    name: "RDS Farm 2",
-    tagline: "Resort & Party Plot · Ahmedabad",
-    description:
-      "Adjacent to RDS Farm, this expanded luxury resort offers additional event spaces and resort amenities with the same natural grandeur.",
-    image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&q=80",
-    alt: "RDS Farm 2 — expanded resort and event venue in Ahmedabad",
-    href: "/rds-farm-2",
-  },
-];
+export type PropertyCard = {
+  _id: string;
+  name: string;
+  slug: string;
+  tagline?: string;
+  description?: string;
+  imageUrl: string;
+  href: string;
+};
 
 /** Properties section displaying the three venue cards with links. */
-export default function PropertiesSection() {
+export default function PropertiesSection({ properties }: { properties: PropertyCard[] }) {
   return (
     <section
       style={{
@@ -123,8 +103,8 @@ export default function PropertiesSection() {
                   }}
                 >
                   <Image
-                    src={property.image}
-                    alt={property.alt}
+                    src={property.imageUrl}
+                    alt={property.name}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     style={{

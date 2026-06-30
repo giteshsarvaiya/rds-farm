@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'default',
   title: 'rds_farm',
 
-  projectId: 'pyjl8i0o',
+  projectId: 'i203g7ij',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],
