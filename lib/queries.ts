@@ -53,6 +53,31 @@ export const siteSettingsQuery = `
   }
 `
 
+export const propertyBySlugQuery = `
+  *[_type == "property" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
+    _id,
+    name,
+    "slug": slug.current,
+    propertyType,
+    heroImage,
+    tagline,
+    description,
+    highlights,
+    amenities,
+    aboutTitle,
+    aboutBody,
+    address,
+    phone,
+    whatsappNumber,
+    email,
+    googleMapsEmbedUrl
+  }
+`
+
+export const allPropertySlugsQuery = `
+  *[_type == "property" && !(_id in path("drafts.**"))]{ "slug": slug.current }
+`
+
 export const roomsQuery = `
   *[_type == "room" && !(_id in path("drafts.**"))] | order(order asc) {
     _id,
