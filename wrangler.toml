@@ -1,0 +1,6 @@
+name = "rds-farm"
+compatibility_date = "2024-01-01"
+
+[vars]
+NEXT_PUBLIC_SANITY_PROJECT_ID = "i203g7ij"
+NEXT_PUBLIC_SANITY_DATASET = "production"
