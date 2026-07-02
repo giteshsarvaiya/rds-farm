@@ -18,11 +18,11 @@ export default async function GalleryPage() {
     .flatMap((g: any) => g.images ?? []);
 
   const farmImages = galleries
-    .filter((g: any) => g.property?.propertyType === "farm" && !g.property?.slug?.includes("2"))
+    .filter((g: any) => g.property?.propertyType === "farm")
     .flatMap((g: any) => g.images ?? []);
 
   const farm2Images = galleries
-    .filter((g: any) => g.property?.propertyType === "farm" && g.property?.slug?.includes("2"))
+    .filter((g: any) => g.property?.propertyType === "farm2")
     .flatMap((g: any) => g.images ?? []);
 
   return (
