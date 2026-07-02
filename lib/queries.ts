@@ -53,6 +53,34 @@ export const siteSettingsQuery = `
   }
 `
 
+export const roomsQuery = `
+  *[_type == "room" && !(_id in path("drafts.**"))] | order(order asc) {
+    _id,
+    name,
+    description,
+    capacity,
+    amenities,
+    "images": images[]{asset, alt}
+  }
+`
+
+export const hotelPropertyQuery = `
+  *[_type == "property" && propertyType == "hotel" && !(_id in path("drafts.**"))][0] {
+    _id,
+    name,
+    heroImage,
+    tagline,
+    description,
+    amenities,
+    aboutTitle,
+    aboutBody,
+    address,
+    phone,
+    whatsappNumber,
+    googleMapsEmbedUrl
+  }
+`
+
 export const galleriesQuery = `
   *[_type == "gallery" && !(_id in path("drafts.**"))] {
     _id,
