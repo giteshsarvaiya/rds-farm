@@ -34,7 +34,7 @@ export default async function HomePage() {
     imageUrl: p.heroImage
       ? urlFor(p.heroImage).width(800).quality(80).url()
       : "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80",
-    href: `/${p.slug}`,
+    href: p.propertyType === 'hotel' ? '/hotel' : p.propertyType === 'farm2' ? '/rds-farm-2' : '/rds-farm',
   }));
 
   const offers = (rawOffers ?? []).map((o: any) => ({
