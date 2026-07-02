@@ -53,6 +53,22 @@ export const siteSettingsQuery = `
   }
 `
 
+export const galleriesQuery = `
+  *[_type == "gallery" && !(_id in path("drafts.**"))] {
+    _id,
+    property-> {
+      name,
+      "slug": slug.current,
+      propertyType
+    },
+    images[] {
+      asset,
+      caption,
+      alt
+    }
+  }
+`
+
 export const blogPostsQuery = `
   *[_type == "blogPost" && !(_id in path("drafts.**"))] | order(publishedAt desc) {
     _id,
