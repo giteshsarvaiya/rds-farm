@@ -4,8 +4,19 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
-/** Full-screen hero section with background image, headline, and animated scroll chevron. */
-export default function HeroSection() {
+interface HeroSectionProps {
+  imageUrl?: string;
+  eyebrow?: string;
+  headline?: string;
+  subtext?: string;
+}
+
+export default function HeroSection({
+  imageUrl = "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=80",
+  eyebrow = "RD Developers · Ahmedabad",
+  headline = "Where Every Moment\nBecomes a Memory",
+  subtext = "Three iconic venues. One unforgettable experience.",
+}: HeroSectionProps) {
   return (
     <section
       style={{
@@ -21,8 +32,8 @@ export default function HeroSection() {
     >
       {/* Background image */}
       <Image
-        src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=80"
-        alt="Luxury resort exterior — RD Developers"
+        src={imageUrl}
+        alt="RD Developers — luxury venues in Ahmedabad"
         fill
         priority
         sizes="100vw"
@@ -66,10 +77,10 @@ export default function HeroSection() {
               marginBottom: "1.5rem",
             }}
           >
-            RD Developers · Ahmedabad
+            {eyebrow}
           </p>
 
-          {/* Main headline */}
+          {/* Main headline — supports \n for line breaks */}
           <h1
             style={{
               fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
@@ -80,11 +91,10 @@ export default function HeroSection() {
               color: "#F5EFE4",
               marginBottom: "1.5rem",
               letterSpacing: "-0.01em",
+              whiteSpace: "pre-line",
             }}
           >
-            Where Every Moment
-            <br />
-            Becomes a Memory
+            {headline}
           </h1>
 
           {/* Subtext */}
@@ -98,7 +108,7 @@ export default function HeroSection() {
               lineHeight: 1.6,
             }}
           >
-            Three iconic venues. One unforgettable experience.
+            {subtext}
           </p>
         </motion.div>
       </div>

@@ -49,6 +49,10 @@ export const siteSettingsQuery = `
     address,
     instagramUrl,
     facebookUrl,
+    heroImage,
+    heroEyebrow,
+    heroHeadline,
+    heroSubtext,
     homepageAboutTitle,
     homepageAboutBody,
     homepageGoogleMapsEmbedUrl

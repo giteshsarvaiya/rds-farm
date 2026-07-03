@@ -60,6 +60,13 @@ export default async function HomePage() {
   const whatsappNumber = siteSettings?.whatsappNumber ?? "919876543210";
   const mapsEmbedUrl: string | null = siteSettings?.homepageGoogleMapsEmbedUrl ?? null;
 
+  const heroImageUrl: string | undefined = siteSettings?.heroImage
+    ? urlFor(siteSettings.heroImage).width(1920).quality(85).url()
+    : undefined;
+  const heroEyebrow: string | undefined = siteSettings?.heroEyebrow ?? undefined;
+  const heroHeadline: string | undefined = siteSettings?.heroHeadline ?? undefined;
+  const heroSubtext: string | undefined = siteSettings?.heroSubtext ?? undefined;
+
   const aboutTitle: string | undefined = siteSettings?.homepageAboutTitle ?? undefined;
   const aboutParagraphs: string[] | undefined = siteSettings?.homepageAboutBody
     ? (siteSettings.homepageAboutBody as any[])
@@ -72,7 +79,12 @@ export default async function HomePage() {
 
   return (
     <>
-      <HeroSection />
+      <HeroSection
+        imageUrl={heroImageUrl}
+        eyebrow={heroEyebrow}
+        headline={heroHeadline}
+        subtext={heroSubtext}
+      />
       <AboutSection title={aboutTitle} paragraphs={aboutParagraphs} />
       <PropertiesSection properties={properties} />
       <OffersSection offers={offers} whatsappNumber={whatsappNumber} />
