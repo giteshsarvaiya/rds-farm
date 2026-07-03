@@ -1,5 +1,9 @@
 import Image from "next/image";
 import CTABanner from "@/components/sections/CTABanner";
+import { client, urlFor } from "@/lib/sanity";
+import { activeOffersQuery, siteSettingsQuery } from "@/lib/queries";
+
+export const revalidate = 3600;
 
 export const metadata = {
   title: "Offers | RD Developers",
@@ -7,65 +11,33 @@ export const metadata = {
     "Explore seasonal packages and special offers across RD's Hotel, RDS Farm, and RDS Farm 2. Contact us for personalised pricing.",
 };
 
-const offers = [
-  {
-    title: "Wedding Season Special",
-    property: "RDS Farm · RDS Farm 2",
-    description:
-      "Celebrate your big day amidst lush greenery and open skies. Our wedding packages cover decor, catering coordination, and venue setup — all tailored to your vision.",
-    highlights: ["Exclusive venue access", "Customisable decor", "Catering coordination", "Dedicated event manager"],
-    image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80",
-    tag: "Most Popular",
-  },
-  {
-    title: "Corporate Retreat Package",
-    property: "RD's Hotel · RDS Farm",
-    description:
-      "Step away from the office and into a space designed for focus and connection. Ideal for leadership offsites, team-building events, and strategic planning sessions.",
-    highlights: ["Conference room access", "Team activities", "Accommodation", "All meals included"],
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
-    tag: "Corporate",
-  },
-  {
-    title: "Festive Dining Experience",
-    property: "RD's Hotel Restaurant",
-    description:
-      "Mark the season with a curated festive menu featuring regional specialties and contemporary classics. Perfect for family gatherings and celebratory dinners.",
-    highlights: ["Seasonal menu", "Private dining available", "Customisable for groups", "Festive ambience"],
-    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
-    tag: "Seasonal",
-  },
-  {
-    title: "Farm Retreat Weekend",
-    property: "RDS Farm",
-    description:
-      "Unplug and recharge with a weekend getaway at RDS Farm. Enjoy the natural setting, outdoor activities, and the warmth of our hospitality.",
-    highlights: ["2-night stay", "Outdoor activities", "Farm-fresh meals", "Bonfire evening"],
-    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
-    tag: "Getaway",
-  },
-  {
-    title: "Birthday Celebration Package",
-    property: "All Venues",
-    description:
-      "Make their day truly special. From intimate gatherings to grand parties, we handle every detail so you can focus on the celebration.",
-    highlights: ["Venue decoration", "Custom cake arrangement", "Photography setup", "Personalised service"],
-    image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=80",
-    tag: "Celebrations",
-  },
-  {
-    title: "Anniversary Dinner",
-    property: "RD's Hotel Restaurant",
-    description:
-      "Rekindle the romance with a private candlelit dinner curated exclusively for the two of you. Every moment designed with love and attention.",
-    highlights: ["Private table setup", "Candlelit ambience", "Custom menu", "Complimentary dessert"],
-    image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80",
-    tag: "Romance",
-  },
-];
+const PROPERTY_LABELS: Record<string, string> = {
+  hotel: "RD's Hotel",
+  farm: "RDS Farm",
+  all: "All Properties",
+};
 
-/** Renders the offers page listing all active packages with WhatsApp inquiry CTAs. */
-export default function OffersPage() {
+export default async function OffersPage() {
+  const [rawOffers, siteSettings] = await Promise.all([
+    client.fetch(activeOffersQuery),
+    client.fetch(siteSettingsQuery),
+  ]);
+
+  const whatsapp = siteSettings?.whatsappNumber ?? "919876543210";
+
+  const offers = (rawOffers ?? []).map((o: any) => ({
+    _id: o._id,
+    title: o.title,
+    description: o.description ?? "",
+    imageUrl: o.image
+      ? urlFor(o.image).width(800).quality(80).url()
+      : "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80",
+    property: PROPERTY_LABELS[o.property] ?? o.property ?? "",
+    ctaText: o.ctaText ?? "Get in Touch",
+    tag: o.tag ?? null,
+    highlights: o.highlights ?? [],
+  }));
+
   return (
     <>
       {/* Hero */}
@@ -104,48 +76,62 @@ export default function OffersPage() {
       {/* Offers Grid */}
       <section className="bg-[#F5EFE4] py-24 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {offers.map((offer) => (
-              <div key={offer.title} className="bg-[#FAF7F2] group overflow-hidden">
-                <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src={offer.image}
-                    alt={offer.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <span className="absolute top-4 left-4 bg-[#B8976A] text-[#F5EFE4] font-inter text-xs uppercase tracking-widest px-3 py-1">
-                    {offer.tag}
-                  </span>
+          {offers.length === 0 ? (
+            <p className="text-[#7A6F62] font-inter text-center py-16">
+              No offers available right now. Check back soon.
+            </p>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {offers.map((offer: typeof offers[number]) => (
+                <div key={offer._id} className="bg-[#FAF7F2] group overflow-hidden">
+                  <div className="relative h-56 overflow-hidden">
+                    <Image
+                      src={offer.imageUrl}
+                      alt={offer.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    {offer.tag && (
+                      <span className="absolute top-4 left-4 bg-[#B8976A] text-[#F5EFE4] font-inter text-xs uppercase tracking-widest px-3 py-1">
+                        {offer.tag}
+                      </span>
+                    )}
+                  </div>
+                  <div className="p-6">
+                    {offer.property && (
+                      <p className="text-[#B8976A] font-inter text-xs uppercase tracking-widest mb-2">
+                        {offer.property}
+                      </p>
+                    )}
+                    <h3 className="font-playfair text-[#1C1A17] text-xl mb-3">{offer.title}</h3>
+                    {offer.description && (
+                      <p className="text-[#7A6F62] font-inter text-sm leading-relaxed mb-4">
+                        {offer.description}
+                      </p>
+                    )}
+                    {offer.highlights.length > 0 && (
+                      <ul className="space-y-1 mb-6">
+                        {offer.highlights.map((h: string) => (
+                          <li key={h} className="text-[#7A6F62] font-inter text-xs flex items-center gap-2">
+                            <span className="w-1 h-1 rounded-full bg-[#B8976A] inline-block flex-shrink-0" />
+                            {h}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <a
+                      href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(`I'm interested in the ${offer.title} package`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-center bg-[#2D5F4F] text-[#F5EFE4] font-inter font-semibold uppercase tracking-widest text-xs px-6 py-3 hover:opacity-90 transition-all duration-300"
+                    >
+                      {offer.ctaText}
+                    </a>
+                  </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-[#B8976A] font-inter text-xs uppercase tracking-widest mb-2">
-                    {offer.property}
-                  </p>
-                  <h3 className="font-playfair text-[#1C1A17] text-xl mb-3">{offer.title}</h3>
-                  <p className="text-[#7A6F62] font-inter text-sm leading-relaxed mb-4">
-                    {offer.description}
-                  </p>
-                  <ul className="space-y-1 mb-6">
-                    {offer.highlights.map((h) => (
-                      <li key={h} className="text-[#7A6F62] font-inter text-xs flex items-center gap-2">
-                        <span className="w-1 h-1 rounded-full bg-[#B8976A] inline-block flex-shrink-0" />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href={`https://wa.me/919876543210?text=I'm interested in the ${offer.title} package`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-center bg-[#2D5F4F] text-[#F5EFE4] font-inter font-semibold uppercase tracking-widest text-xs px-6 py-3 hover:opacity-90 transition-all duration-300"
-                  >
-                    Get in Touch
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

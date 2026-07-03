@@ -50,6 +50,19 @@ export const offer = defineType({
       type: 'date',
     }),
     defineField({
+      name: 'tag',
+      title: 'Tag',
+      type: 'string',
+      description: 'Short label shown on the card (e.g. "Most Popular", "Seasonal")',
+    }),
+    defineField({
+      name: 'highlights',
+      title: 'Highlights',
+      type: 'array',
+      of: [{type: 'string'}],
+      description: 'Key inclusions shown as bullet points on the card',
+    }),
+    defineField({
       name: 'isActive',
       title: 'Active',
       type: 'boolean',

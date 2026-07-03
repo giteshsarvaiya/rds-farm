@@ -25,7 +25,9 @@ export const activeOffersQuery = `
     image,
     property,
     ctaText,
-    validUntil
+    validUntil,
+    tag,
+    highlights
   }
 `
 
