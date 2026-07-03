@@ -6,11 +6,13 @@ import ExperiencesSection from "@/components/sections/ExperiencesSection";
 import GallerySection from "@/components/sections/GallerySection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import CTABanner from "@/components/sections/CTABanner";
+import OffersAutoPopup from "@/components/ui/OffersAutoPopup";
 
 /** Renders the homepage composed of all section components in sequence. */
 export default function HomePage() {
   return (
     <>
+      <OffersAutoPopup />
       <HeroSection />
       <AboutSection />
       <PropertiesSection />

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import CTABanner from "@/components/sections/CTABanner";
+import OffersGrid from "@/components/sections/OffersGrid";
+import type { OfferItem } from "@/components/ui/OffersPopup";
 
 export const metadata = {
   title: "Offers | RD Developers",
@@ -7,7 +9,7 @@ export const metadata = {
     "Explore seasonal packages and special offers across RD's Hotel, RDS Farm, and RDS Farm 2. Contact us for personalised pricing.",
 };
 
-const offers = [
+const offers: OfferItem[] = [
   {
     title: "Wedding Season Special",
     property: "RDS Farm · RDS Farm 2",
@@ -104,48 +106,7 @@ export default function OffersPage() {
       {/* Offers Grid */}
       <section className="bg-[#F5EFE4] py-24 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {offers.map((offer) => (
-              <div key={offer.title} className="bg-[#FAF7F2] group overflow-hidden">
-                <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src={offer.image}
-                    alt={offer.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <span className="absolute top-4 left-4 bg-[#B8976A] text-[#F5EFE4] font-inter text-xs uppercase tracking-widest px-3 py-1">
-                    {offer.tag}
-                  </span>
-                </div>
-                <div className="p-6">
-                  <p className="text-[#B8976A] font-inter text-xs uppercase tracking-widest mb-2">
-                    {offer.property}
-                  </p>
-                  <h3 className="font-playfair text-[#1C1A17] text-xl mb-3">{offer.title}</h3>
-                  <p className="text-[#7A6F62] font-inter text-sm leading-relaxed mb-4">
-                    {offer.description}
-                  </p>
-                  <ul className="space-y-1 mb-6">
-                    {offer.highlights.map((h) => (
-                      <li key={h} className="text-[#7A6F62] font-inter text-xs flex items-center gap-2">
-                        <span className="w-1 h-1 rounded-full bg-[#B8976A] inline-block flex-shrink-0" />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href={`https://wa.me/919876543210?text=I'm interested in the ${offer.title} package`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-center bg-[#2D5F4F] text-[#F5EFE4] font-inter font-semibold uppercase tracking-widest text-xs px-6 py-3 hover:opacity-90 transition-all duration-300"
-                  >
-                    Get in Touch
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
+          <OffersGrid offers={offers} />
         </div>
       </section>
 

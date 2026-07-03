@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
+import OffersPopup from "@/components/ui/OffersPopup";
 
 const WHATSAPP_NUMBER = "919876543210";
 const WHATSAPP_MESSAGE = encodeURIComponent(
@@ -42,7 +44,10 @@ const offers = [
 
 /** Offers section showing active packages with WhatsApp inquiry CTAs. */
 export default function OffersSection() {
+  const [popupIndex, setPopupIndex] = useState<number | null>(null);
+
   return (
+    <>
     <section
       style={{
         backgroundColor: "#2D5F4F",
@@ -121,6 +126,10 @@ export default function OffersSection() {
               }}
             >
               <div
+                onClick={() => setPopupIndex(index)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === "Enter" && setPopupIndex(index)}
                 style={{
                   display: "grid",
                   gridTemplateColumns: "1fr",
@@ -128,6 +137,7 @@ export default function OffersSection() {
                   border: "1px solid rgba(245,239,228,0.1)",
                   overflow: "hidden",
                   transition: "border-color 0.3s",
+                  cursor: "pointer",
                 }}
                 className="offer-card"
               >
@@ -286,5 +296,15 @@ export default function OffersSection() {
         </div>
       </div>
     </section>
+
+    {popupIndex !== null && (
+      <OffersPopup
+        offers={offers}
+        activeIndex={popupIndex}
+        onClose={() => setPopupIndex(null)}
+        onNavigate={setPopupIndex}
+      />
+    )}
+    </>
   );
 }
