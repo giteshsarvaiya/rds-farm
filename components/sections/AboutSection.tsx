@@ -81,7 +81,7 @@ export default function AboutSection() {
               marginBottom: "1.25rem",
             }}
           >
-            For over a decade, RD Developers has been synonymous with gracious hospitality in Ahmedabad.
+            For over a decade, RD&apos;s Venues has been synonymous with gracious hospitality in Ahmedabad.
             Founded with a singular vision — to create spaces where people come together and moments
             transform into lifelong memories — we have grown into a family of three distinct luxury venues,
             each with its own character and charm.

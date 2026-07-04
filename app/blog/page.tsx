@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Blog | RD Developers",
+  title: "Blog | RD's Venues",
   description:
-    "Tips, guides, and inspiration for weddings, events, and stays at RD Developers venues in Ahmedabad.",
+    "Tips, guides, and inspiration for weddings, events, and stays at RD's Venues in Ahmedabad.",
 };
 
 const posts = [

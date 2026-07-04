@@ -20,21 +20,21 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "RD Developers | Luxury Venues in Ahmedabad",
+  title: "RD's Venues | Luxury Venues in Ahmedabad",
   description:
-    "RD Developers offers three iconic luxury venues in Ahmedabad — RD's Hotel, RDS Farm, and RDS Farm 2. Exceptional hospitality for weddings, events, and retreats.",
+    "RD's Venues offers three iconic luxury venues in Ahmedabad — RD's Hotel, RDS Farm, and RDS Farm 2. Exceptional hospitality for weddings, events, and retreats.",
   keywords: [
     "luxury hotel Ahmedabad",
     "wedding venue Ahmedabad",
     "farm resort Ahmedabad",
-    "RD Developers",
+    "RD's Venues",
     "RDS Farm",
     "party plot Ahmedabad",
   ],
   openGraph: {
-    title: "RD Developers | Luxury Venues in Ahmedabad",
+    title: "RD's Venues | Luxury Venues in Ahmedabad",
     description:
-      "Three iconic venues. One unforgettable experience. Discover RD Developers — luxury hospitality in the heart of Ahmedabad.",
+      "Three iconic venues. One unforgettable experience. Discover RD's Venues — luxury hospitality in the heart of Ahmedabad.",
     type: "website",
   },
 };

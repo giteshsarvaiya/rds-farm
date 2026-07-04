@@ -117,7 +117,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const post = posts.find((p) => p.slug === slug);
   if (!post) return {};
   return {
-    title: `${post.title} | RD Developers Blog`,
+    title: `${post.title} | RD's Venues Blog`,
     description: post.excerpt,
   };
 }

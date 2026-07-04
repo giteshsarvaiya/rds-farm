@@ -22,7 +22,7 @@ export default function HeroSection() {
       {/* Background image */}
       <Image
         src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=80"
-        alt="Luxury resort exterior — RD Developers"
+        alt="Luxury resort exterior — RD's Venues"
         fill
         priority
         sizes="100vw"
@@ -66,7 +66,7 @@ export default function HeroSection() {
               marginBottom: "1.5rem",
             }}
           >
-            RD Developers · Ahmedabad
+            RD&apos;s Venues · Ahmedabad
           </p>
 
           {/* Main headline */}
