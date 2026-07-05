@@ -5,7 +5,7 @@ import { galleriesQuery } from "@/lib/queries";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Gallery | RD Developers",
+  title: "Gallery | RD's Venues",
   description:
     "Explore photos from RD's Hotel, RDS Farm, and RDS Farm 2 — luxury venues in Ahmedabad.",
 };

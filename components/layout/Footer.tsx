@@ -78,7 +78,7 @@ export default function Footer({
               marginBottom: "1rem",
             }}
           >
-            RD DEVELOPERS
+            RD&apos;S VENUES
           </div>
           <p
             style={{
@@ -283,7 +283,7 @@ export default function Footer({
           }}
         >
           <p style={{ fontFamily: "var(--font-inter), Inter, system-ui, sans-serif", fontSize: "0.8125rem", color: "rgba(245,239,228,0.5)" }}>
-            &copy; {new Date().getFullYear()} RD Developers. All rights reserved.
+            &copy; {new Date().getFullYear()} RD&apos;s Venues. All rights reserved.
           </p>
           <p style={{ fontFamily: "var(--font-inter), Inter, system-ui, sans-serif", fontSize: "0.8125rem", color: "rgba(245,239,228,0.5)" }}>
             Luxury Hospitality in Ahmedabad

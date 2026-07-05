@@ -33,7 +33,7 @@ export default function HeroSection({
       {/* Background image */}
       <Image
         src={imageUrl}
-        alt="RD Developers — luxury venues in Ahmedabad"
+        alt="RD's Venues — luxury venues in Ahmedabad"
         fill
         priority
         sizes="100vw"

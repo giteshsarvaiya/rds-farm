@@ -6,7 +6,7 @@ import { activeOffersQuery, siteSettingsQuery } from "@/lib/queries";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Offers | RD Developers",
+  title: "Offers | RD's Venues",
   description:
     "Explore seasonal packages and special offers across RD's Hotel, RDS Farm, and RDS Farm 2. Contact us for personalised pricing.",
 };

@@ -6,16 +6,16 @@ import { siteSettingsQuery } from "@/lib/queries";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Contact | RD Developers",
+  title: "Contact | RD's Venues",
   description:
-    "Get in touch with RD Developers. Reach us by phone, WhatsApp, or email for inquiries about RD's Hotel, RDS Farm, and RDS Farm 2.",
+    "Get in touch with RD's Venues. Reach us by phone, WhatsApp, or email for inquiries about RD's Hotel, RDS Farm, and RDS Farm 2.",
 };
 
 export default async function ContactPage() {
   const s = await client.fetch(siteSettingsQuery).catch(() => null);
 
   const phone = s?.phone ?? "+91 98765 43210";
-  const email = s?.email ?? "hello@rddevelopers.com";
+  const email = s?.email ?? "hello@rdsvenues.com";
   const address = s?.address ?? "Ahmedabad, Gujarat, India";
   const whatsapp = s?.whatsappNumber ?? "919876543210";
   const instagramUrl = s?.instagramUrl ?? "https://instagram.com";

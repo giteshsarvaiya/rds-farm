@@ -24,6 +24,7 @@ export default function OffersSection({
 }) {
   const WHATSAPP_URL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hello! I'd like to inquire about your current offers.")}`;
   return (
+    <>
     <section
       style={{
         backgroundColor: "#2D5F4F",
@@ -234,5 +235,6 @@ export default function OffersSection({
         </div>
       </div>
     </section>
+    </>
   );
 }
