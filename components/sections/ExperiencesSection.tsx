@@ -3,35 +3,26 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const experiences = [
-  {
-    title: "Weddings & Celebrations",
-    description: "Opulent ceremonies and receptions across our sprawling outdoor venues.",
-    image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80",
-    alt: "Luxurious wedding celebration",
-  },
-  {
-    title: "Corporate Events",
-    description: "State-of-the-art facilities for conferences, offsites, and team gatherings.",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
-    alt: "Professional corporate event space",
-  },
-  {
-    title: "Farm Retreats",
-    description: "Serene getaways surrounded by nature — perfect for rejuvenation and reflection.",
-    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
-    alt: "Peaceful farm retreat landscape",
-  },
-  {
-    title: "Fine Dining",
-    description: "Culinary journeys crafted with seasonal ingredients and artful presentation.",
-    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
-    alt: "Elegant fine dining restaurant",
-  },
+const FALLBACK_EXPERIENCES = [
+  { title: "Weddings & Celebrations", description: "Opulent ceremonies and receptions across our sprawling outdoor venues.", image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80", alt: "Luxurious wedding celebration" },
+  { title: "Corporate Events", description: "State-of-the-art facilities for conferences, offsites, and team gatherings.", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80", alt: "Professional corporate event space" },
+  { title: "Farm Retreats", description: "Serene getaways surrounded by nature — perfect for rejuvenation and reflection.", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Peaceful farm retreat landscape" },
+  { title: "Fine Dining", description: "Culinary journeys crafted with seasonal ingredients and artful presentation.", image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80", alt: "Elegant fine dining restaurant" },
 ];
 
-/** Experiences section with a 2x2 grid of full-bleed image tiles. */
-export default function ExperiencesSection() {
+interface Experience {
+  title: string;
+  description: string;
+  image: string;
+  alt?: string;
+}
+
+interface ExperiencesSectionProps {
+  experiences?: Experience[];
+}
+
+export default function ExperiencesSection({ experiences }: ExperiencesSectionProps) {
+  const items = experiences?.length ? experiences : FALLBACK_EXPERIENCES;
   return (
     <section
       style={{
@@ -84,7 +75,7 @@ export default function ExperiencesSection() {
             gap: "1.5rem",
           }}
         >
-          {experiences.map((exp, index) => (
+          {items.map((exp, index) => (
             <motion.div
               key={exp.title}
               initial={{ opacity: 0, y: 30 }}
@@ -114,7 +105,7 @@ export default function ExperiencesSection() {
               >
                 <Image
                   src={exp.image}
-                  alt={exp.alt}
+                  alt={exp.alt ?? exp.title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   style={{

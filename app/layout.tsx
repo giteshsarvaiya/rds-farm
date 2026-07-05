@@ -3,6 +3,8 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { client } from "@/lib/sanity";
+import { siteSettingsQuery, propertyNavQuery } from "@/lib/queries";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -39,18 +41,35 @@ export const metadata: Metadata = {
   },
 };
 
-/** Root layout wrapping every page with shared fonts, metadata, header, and footer. */
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [siteSettings, propertyLinks] = await Promise.all([
+    client.fetch(siteSettingsQuery).catch(() => null),
+    client.fetch(propertyNavQuery).catch(() => []),
+  ]);
+
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body>
-        <Header />
+        <Header
+          propertyLinks={(propertyLinks ?? []).map((p: { name: string; slug: string }) => ({
+            label: p.name,
+            href: `/${p.slug}`,
+          }))}
+          whatsappNumber={siteSettings?.whatsappNumber}
+        />
         <main>{children}</main>
-        <Footer />
+        <Footer
+          phone={siteSettings?.phone}
+          email={siteSettings?.email}
+          address={siteSettings?.address}
+          whatsappNumber={siteSettings?.whatsappNumber}
+          instagramUrl={siteSettings?.instagramUrl}
+          facebookUrl={siteSettings?.facebookUrl}
+        />
       </body>
     </html>
   );

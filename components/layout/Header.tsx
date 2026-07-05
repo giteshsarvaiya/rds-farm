@@ -5,23 +5,23 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, MessageCircle } from "lucide-react";
 
-const navLinks = [
-  { label: "Hotels", href: "/hotel" },
-  { label: "RDS Farm", href: "/rds-farm" },
-  { label: "RDS Farm 2", href: "/rds-farm-2" },
+const STATIC_NAV = [
   { label: "Offers", href: "/offers" },
   { label: "Gallery", href: "/gallery" },
   { label: "Blog", href: "/blog" },
 ];
 
-const WHATSAPP_NUMBER = "919876543210";
-const WHATSAPP_MESSAGE = encodeURIComponent(
-  "Hello! I'd like to inquire about your venues."
-);
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
+interface HeaderProps {
+  propertyLinks?: { label: string; href: string }[];
+  whatsappNumber?: string;
+}
 
-/** Fixed site header with transparent-to-solid scroll transition and mobile drawer nav. */
-export default function Header() {
+export default function Header({
+  propertyLinks = [],
+  whatsappNumber = "919876543210",
+}: HeaderProps) {
+  const navLinks = [...propertyLinks, ...STATIC_NAV];
+  const WHATSAPP_URL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hello! I'd like to inquire about your venues.")}`;
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 

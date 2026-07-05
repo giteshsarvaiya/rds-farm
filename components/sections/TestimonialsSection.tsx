@@ -2,29 +2,16 @@
 
 import { motion } from "framer-motion";
 
-const testimonials = [
-  {
-    quote:
-      "Our wedding at RDS Farm was nothing short of magical. The team handled every detail with such grace and attention — from the floral arrangements to the seamless coordination of 500 guests. We still talk about it years later.",
-    name: "Priya & Rahul Mehta",
-    property: "RDS Farm · Wedding",
-  },
-  {
-    quote:
-      "We hosted our annual leadership retreat at RD's Hotel and could not have been more impressed. The conference facilities were world-class, the dining was exceptional, and the staff went above and beyond to ensure everything was perfect.",
-    name: "Ananya Shah",
-    property: "RD's Hotel · Corporate Retreat",
-  },
-  {
-    quote:
-      "RDS Farm 2 gave our family celebration the grandeur we were hoping for. The venue is breathtaking — lush, expansive, and so beautifully managed. The hospitality felt genuinely personal. Truly an unforgettable experience.",
-    name: "Vikram & Deepa Patel",
-    property: "RDS Farm 2 · Family Celebration",
-  },
-];
+export type Testimonial = {
+  _id: string;
+  name: string;
+  property: string;
+  quote: string;
+  rating: number;
+};
 
 /** Testimonials section with stacked guest quotes and gold quotation marks. */
-export default function TestimonialsSection() {
+export default function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   return (
     <section
       style={{

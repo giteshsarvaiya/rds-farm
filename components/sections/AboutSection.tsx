@@ -8,8 +8,20 @@ const stats = [
   { value: "Est. 2010", label: "Founded" },
 ];
 
-/** About section with brand story and animated stats row. */
-export default function AboutSection() {
+const DEFAULT_TITLE = "A Legacy of Warmth & Hospitality";
+const DEFAULT_PARAGRAPHS = [
+  "For over a decade, RD Developers has been synonymous with gracious hospitality in Ahmedabad. Founded with a singular vision — to create spaces where people come together and moments transform into lifelong memories — we have grown into a family of three distinct luxury venues, each with its own character and charm.",
+  "From the refined elegance of RD's Hotel to the open-sky grandeur of RDS Farm and RDS Farm 2, every property reflects our unwavering commitment to personalised service, exquisite environments, and experiences that linger long after the celebration has ended. We do not simply host events — we curate memories.",
+];
+
+interface AboutSectionProps {
+  title?: string;
+  paragraphs?: string[];
+}
+
+export default function AboutSection({ title, paragraphs }: AboutSectionProps) {
+  const heading = title || DEFAULT_TITLE;
+  const body = paragraphs?.length ? paragraphs : DEFAULT_PARAGRAPHS;
   return (
     <section
       style={{
@@ -58,7 +70,7 @@ export default function AboutSection() {
               letterSpacing: "-0.01em",
             }}
           >
-            A Legacy of Warmth &amp; Hospitality
+            {heading}
           </h2>
 
           {/* Divider */}
@@ -72,33 +84,20 @@ export default function AboutSection() {
           />
 
           {/* Paragraphs */}
-          <p
-            style={{
-              fontFamily: "var(--font-inter), Inter, system-ui, sans-serif",
-              fontSize: "1rem",
-              lineHeight: 1.85,
-              color: "#7A6F62",
-              marginBottom: "1.25rem",
-            }}
-          >
-            For over a decade, RD&apos;s Venues has been synonymous with gracious hospitality in Ahmedabad.
-            Founded with a singular vision — to create spaces where people come together and moments
-            transform into lifelong memories — we have grown into a family of three distinct luxury venues,
-            each with its own character and charm.
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-inter), Inter, system-ui, sans-serif",
-              fontSize: "1rem",
-              lineHeight: 1.85,
-              color: "#7A6F62",
-            }}
-          >
-            From the refined elegance of RD's Hotel to the open-sky grandeur of RDS Farm and RDS Farm 2,
-            every property reflects our unwavering commitment to personalised service, exquisite environments,
-            and experiences that linger long after the celebration has ended. We do not simply host events —
-            we curate memories.
-          </p>
+          {body.map((para, i) => (
+            <p
+              key={i}
+              style={{
+                fontFamily: "var(--font-inter), Inter, system-ui, sans-serif",
+                fontSize: "1rem",
+                lineHeight: 1.85,
+                color: "#7A6F62",
+                marginBottom: i < body.length - 1 ? "1.25rem" : 0,
+              }}
+            >
+              {para}
+            </p>
+          ))}
         </motion.div>
 
         {/* Stats row */}

@@ -5,48 +5,56 @@ import { Instagram, Facebook, MessageCircle, MapPin, Phone, Mail } from "lucide-
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "RD's Hotel", href: "/hotel" },
-  { label: "RDS Farm", href: "/rds-farm" },
-  { label: "RDS Farm 2", href: "/rds-farm-2" },
   { label: "Latest Offers", href: "/offers" },
   { label: "Gallery", href: "/gallery" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
-const properties = [
-  {
-    name: "RD's Hotel",
-    description: "3-Star Hotel & Restaurant",
-    detail: "50+ premium rooms, fine dining, conference facilities",
-  },
-  {
-    name: "RDS Farm",
-    description: "Resort & Party Plot",
-    detail: "Sprawling farm venue for weddings and celebrations",
-  },
-  {
-    name: "RDS Farm 2",
-    description: "Resort & Party Plot",
-    detail: "Adjacent luxury resort with expanded event spaces",
-  },
-];
+interface FooterProps {
+  phone?: string;
+  email?: string;
+  address?: string;
+  whatsappNumber?: string;
+  instagramUrl?: string;
+  facebookUrl?: string;
+}
 
-const WHATSAPP_NUMBER = "919876543210";
-const WHATSAPP_MESSAGE = encodeURIComponent(
-  "Hello! I'd like to inquire about your venues."
-);
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
+export default function Footer({
+  phone = "+91 98765 43210",
+  email = "hello@rddevelopers.com",
+  address = "Ahmedabad, Gujarat, India",
+  whatsappNumber = "919876543210",
+  instagramUrl = "https://instagram.com",
+  facebookUrl = "https://facebook.com",
+}: FooterProps) {
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hello! I'd like to inquire about your venues.")}`;
+  const phoneHref = `tel:${phone.replace(/\s+/g, "")}`;
+  const mailHref = `mailto:${email}`;
 
-/** Site footer with navigation links, property details, contact info, and social icons. */
-export default function Footer() {
+  const socialIconStyle: React.CSSProperties = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "40px",
+    height: "40px",
+    borderRadius: "50%",
+    border: "1px solid rgba(245,239,228,0.3)",
+    color: "rgba(245,239,228,0.7)",
+    transition: "border-color 0.3s, color 0.3s",
+    textDecoration: "none",
+  };
+  const onSocialEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.currentTarget.style.borderColor = "#B8976A";
+    e.currentTarget.style.color = "#B8976A";
+  };
+  const onSocialLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.currentTarget.style.borderColor = "rgba(245,239,228,0.3)";
+    e.currentTarget.style.color = "rgba(245,239,228,0.7)";
+  };
+
   return (
-    <footer
-      style={{
-        backgroundColor: "#2D5F4F",
-        color: "#F5EFE4",
-      }}
-    >
+    <footer style={{ backgroundColor: "#2D5F4F", color: "#F5EFE4" }}>
       {/* Main footer grid */}
       <div
         style={{
@@ -87,92 +95,35 @@ export default function Footer() {
           {/* Social icons */}
           <div style={{ display: "flex", gap: "1rem" }}>
             <a
-              href="https://instagram.com"
+              href={instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "40px",
-                height: "40px",
-                borderRadius: "50%",
-                border: "1px solid rgba(245,239,228,0.3)",
-                color: "rgba(245,239,228,0.7)",
-                transition: "border-color 0.3s, color 0.3s",
-                textDecoration: "none",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget;
-                el.style.borderColor = "#B8976A";
-                el.style.color = "#B8976A";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget;
-                el.style.borderColor = "rgba(245,239,228,0.3)";
-                el.style.color = "rgba(245,239,228,0.7)";
-              }}
+              style={socialIconStyle}
+              onMouseEnter={onSocialEnter}
+              onMouseLeave={onSocialLeave}
             >
               <Instagram size={18} />
             </a>
             <a
-              href="https://facebook.com"
+              href={facebookUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "40px",
-                height: "40px",
-                borderRadius: "50%",
-                border: "1px solid rgba(245,239,228,0.3)",
-                color: "rgba(245,239,228,0.7)",
-                transition: "border-color 0.3s, color 0.3s",
-                textDecoration: "none",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget;
-                el.style.borderColor = "#B8976A";
-                el.style.color = "#B8976A";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget;
-                el.style.borderColor = "rgba(245,239,228,0.3)";
-                el.style.color = "rgba(245,239,228,0.7)";
-              }}
+              style={socialIconStyle}
+              onMouseEnter={onSocialEnter}
+              onMouseLeave={onSocialLeave}
             >
               <Facebook size={18} />
             </a>
             <a
-              href={WHATSAPP_URL}
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "40px",
-                height: "40px",
-                borderRadius: "50%",
-                border: "1px solid rgba(245,239,228,0.3)",
-                color: "rgba(245,239,228,0.7)",
-                transition: "border-color 0.3s, color 0.3s",
-                textDecoration: "none",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget;
-                el.style.borderColor = "#B8976A";
-                el.style.color = "#B8976A";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget;
-                el.style.borderColor = "rgba(245,239,228,0.3)";
-                el.style.color = "rgba(245,239,228,0.7)";
-              }}
+              style={socialIconStyle}
+              onMouseEnter={onSocialEnter}
+              onMouseLeave={onSocialLeave}
             >
               <MessageCircle size={18} />
             </a>
@@ -206,73 +157,14 @@ export default function Footer() {
                     textDecoration: "none",
                     transition: "color 0.2s",
                   }}
-                  onMouseEnter={(e) => {
-                    (e.target as HTMLElement).style.color = "#F5EFE4";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.target as HTMLElement).style.color = "rgba(245,239,228,0.7)";
-                  }}
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#F5EFE4")}
+                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(245,239,228,0.7)")}
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
           </ul>
-        </div>
-
-        {/* Properties column */}
-        <div>
-          <h3
-            style={{
-              fontFamily: "var(--font-inter), Inter, system-ui, sans-serif",
-              fontSize: "0.6875rem",
-              fontWeight: 600,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "#B8976A",
-              marginBottom: "1.5rem",
-            }}
-          >
-            Our Properties
-          </h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-            {properties.map((prop) => (
-              <div key={prop.name}>
-                <div
-                  style={{
-                    fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
-                    fontWeight: 600,
-                    fontSize: "1rem",
-                    color: "#F5EFE4",
-                    marginBottom: "0.25rem",
-                  }}
-                >
-                  {prop.name}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-inter), Inter, system-ui, sans-serif",
-                    fontSize: "0.75rem",
-                    color: "#B8976A",
-                    marginBottom: "0.25rem",
-                    letterSpacing: "0.04em",
-                  }}
-                >
-                  {prop.description}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-inter), Inter, system-ui, sans-serif",
-                    fontSize: "0.8125rem",
-                    color: "rgba(245,239,228,0.6)",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {prop.detail}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Contact column */}
@@ -301,13 +193,13 @@ export default function Footer() {
                   lineHeight: 1.6,
                 }}
               >
-                Ahmedabad, Gujarat, India
+                {address}
               </span>
             </div>
             <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
               <Phone size={16} style={{ color: "#B8976A", flexShrink: 0 }} />
               <a
-                href="tel:+919876543210"
+                href={phoneHref}
                 style={{
                   fontFamily: "var(--font-inter), Inter, system-ui, sans-serif",
                   fontSize: "0.875rem",
@@ -318,13 +210,13 @@ export default function Footer() {
                 onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#F5EFE4")}
                 onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(245,239,228,0.7)")}
               >
-                +91 98765 43210
+                {phone}
               </a>
             </div>
             <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
               <Mail size={16} style={{ color: "#B8976A", flexShrink: 0 }} />
               <a
-                href="mailto:hello@rddevelopers.com"
+                href={mailHref}
                 style={{
                   fontFamily: "var(--font-inter), Inter, system-ui, sans-serif",
                   fontSize: "0.875rem",
@@ -335,11 +227,11 @@ export default function Footer() {
                 onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#F5EFE4")}
                 onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(245,239,228,0.7)")}
               >
-                hello@rddevelopers.com
+                {email}
               </a>
             </div>
             <a
-              href={WHATSAPP_URL}
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -362,14 +254,12 @@ export default function Footer() {
                 width: "fit-content",
               }}
               onMouseEnter={(e) => {
-                const el = e.currentTarget;
-                el.style.borderColor = "#B8976A";
-                el.style.backgroundColor = "rgba(184,151,106,0.1)";
+                e.currentTarget.style.borderColor = "#B8976A";
+                e.currentTarget.style.backgroundColor = "rgba(184,151,106,0.1)";
               }}
               onMouseLeave={(e) => {
-                const el = e.currentTarget;
-                el.style.borderColor = "rgba(245,239,228,0.4)";
-                el.style.backgroundColor = "transparent";
+                e.currentTarget.style.borderColor = "rgba(245,239,228,0.4)";
+                e.currentTarget.style.backgroundColor = "transparent";
               }}
             >
               <MessageCircle size={14} />
@@ -380,12 +270,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div
-        style={{
-          borderTop: "1px solid rgba(245,239,228,0.12)",
-          padding: "1.5rem",
-        }}
-      >
+      <div style={{ borderTop: "1px solid rgba(245,239,228,0.12)", padding: "1.5rem" }}>
         <div
           style={{
             maxWidth: "1280px",
@@ -397,22 +282,10 @@ export default function Footer() {
             gap: "0.75rem",
           }}
         >
-          <p
-            style={{
-              fontFamily: "var(--font-inter), Inter, system-ui, sans-serif",
-              fontSize: "0.8125rem",
-              color: "rgba(245,239,228,0.5)",
-            }}
-          >
+          <p style={{ fontFamily: "var(--font-inter), Inter, system-ui, sans-serif", fontSize: "0.8125rem", color: "rgba(245,239,228,0.5)" }}>
             &copy; {new Date().getFullYear()} RD&apos;s Venues. All rights reserved.
           </p>
-          <p
-            style={{
-              fontFamily: "var(--font-inter), Inter, system-ui, sans-serif",
-              fontSize: "0.8125rem",
-              color: "rgba(245,239,228,0.5)",
-            }}
-          >
+          <p style={{ fontFamily: "var(--font-inter), Inter, system-ui, sans-serif", fontSize: "0.8125rem", color: "rgba(245,239,228,0.5)" }}>
             Luxury Hospitality in Ahmedabad
           </p>
         </div>

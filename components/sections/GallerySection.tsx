@@ -4,36 +4,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-const galleryImages = [
-  {
-    src: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80",
-    alt: "Elegant hotel lobby interior",
-    span: "tall", // 2 rows
-  },
-  {
-    src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80",
-    alt: "Luxury pool with resort backdrop",
-    span: "normal",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
-    alt: "Panoramic farm landscape at golden hour",
-    span: "normal",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
-    alt: "Fine dining restaurant ambience",
-    span: "tall",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80",
-    alt: "Grand wedding event setup",
-    span: "wide",
-  },
+const FALLBACK_IMAGES = [
+  { src: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80", alt: "Elegant hotel lobby interior" },
+  { src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80", alt: "Luxury pool with resort backdrop" },
+  { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Panoramic farm landscape at golden hour" },
+  { src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80", alt: "Fine dining restaurant ambience" },
+  { src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80", alt: "Grand wedding event setup" },
 ];
 
-/** Gallery glimpse section with an asymmetric image grid and link to full gallery. */
-export default function GallerySection() {
+interface GallerySectionProps {
+  images?: { src: string; alt: string }[];
+}
+
+export default function GallerySection({ images }: GallerySectionProps) {
+  const galleryImages = images?.length ? images.slice(0, 5) : FALLBACK_IMAGES;
   return (
     <section
       style={{
@@ -107,109 +91,36 @@ export default function GallerySection() {
             }
           `}</style>
 
-          {/* Image 1 — tall (left, spans 2 rows) */}
-          <div
-            className="gallery-item-tall"
-            style={{
-              position: "relative",
-              gridRow: "span 2",
-              overflow: "hidden",
-              cursor: "pointer",
-            }}
-            onMouseEnter={(e) => {
-              const img = e.currentTarget.querySelector("img");
-              if (img) img.style.transform = "scale(1.06)";
-            }}
-            onMouseLeave={(e) => {
-              const img = e.currentTarget.querySelector("img");
-              if (img) img.style.transform = "scale(1)";
-            }}
+          {/* Image 1 — tall left, spans 2 rows */}
+          <div className="gallery-item-tall" style={{ position: "relative", gridRow: "span 2", overflow: "hidden", cursor: "pointer" }}
+            onMouseEnter={(e) => { const img = e.currentTarget.querySelector("img"); if (img) img.style.transform = "scale(1.06)"; }}
+            onMouseLeave={(e) => { const img = e.currentTarget.querySelector("img"); if (img) img.style.transform = "scale(1)"; }}
           >
-            <Image
-              src={galleryImages[0].src}
-              alt={galleryImages[0].alt}
-              fill
-              sizes="(max-width: 768px) 50vw, 33vw"
-              style={{ objectFit: "cover", transition: "transform 0.6s ease" }}
-            />
+            <Image src={galleryImages[0].src} alt={galleryImages[0].alt} fill sizes="(max-width: 768px) 50vw, 33vw" style={{ objectFit: "cover", transition: "transform 0.6s ease" }} />
           </div>
 
           {/* Image 2 — top center */}
-          <div
-            style={{
-              position: "relative",
-              overflow: "hidden",
-              cursor: "pointer",
-            }}
-            onMouseEnter={(e) => {
-              const img = e.currentTarget.querySelector("img");
-              if (img) img.style.transform = "scale(1.06)";
-            }}
-            onMouseLeave={(e) => {
-              const img = e.currentTarget.querySelector("img");
-              if (img) img.style.transform = "scale(1)";
-            }}
+          <div style={{ position: "relative", overflow: "hidden", cursor: "pointer" }}
+            onMouseEnter={(e) => { const img = e.currentTarget.querySelector("img"); if (img) img.style.transform = "scale(1.06)"; }}
+            onMouseLeave={(e) => { const img = e.currentTarget.querySelector("img"); if (img) img.style.transform = "scale(1)"; }}
           >
-            <Image
-              src={galleryImages[1].src}
-              alt={galleryImages[1].alt}
-              fill
-              sizes="(max-width: 768px) 50vw, 33vw"
-              style={{ objectFit: "cover", transition: "transform 0.6s ease" }}
-            />
+            <Image src={galleryImages[1]?.src ?? galleryImages[0].src} alt={galleryImages[1]?.alt ?? ""} fill sizes="(max-width: 768px) 50vw, 33vw" style={{ objectFit: "cover", transition: "transform 0.6s ease" }} />
           </div>
 
-          {/* Image 3 — top right (tall) */}
-          <div
-            className="gallery-item-tall"
-            style={{
-              position: "relative",
-              gridRow: "span 2",
-              overflow: "hidden",
-              cursor: "pointer",
-            }}
-            onMouseEnter={(e) => {
-              const img = e.currentTarget.querySelector("img");
-              if (img) img.style.transform = "scale(1.06)";
-            }}
-            onMouseLeave={(e) => {
-              const img = e.currentTarget.querySelector("img");
-              if (img) img.style.transform = "scale(1)";
-            }}
+          {/* Image 3 — top right, tall */}
+          <div className="gallery-item-tall" style={{ position: "relative", gridRow: "span 2", overflow: "hidden", cursor: "pointer" }}
+            onMouseEnter={(e) => { const img = e.currentTarget.querySelector("img"); if (img) img.style.transform = "scale(1.06)"; }}
+            onMouseLeave={(e) => { const img = e.currentTarget.querySelector("img"); if (img) img.style.transform = "scale(1)"; }}
           >
-            <Image
-              src={galleryImages[3].src}
-              alt={galleryImages[3].alt}
-              fill
-              sizes="(max-width: 768px) 50vw, 33vw"
-              style={{ objectFit: "cover", transition: "transform 0.6s ease" }}
-            />
+            <Image src={galleryImages[2]?.src ?? galleryImages[0].src} alt={galleryImages[2]?.alt ?? ""} fill sizes="(max-width: 768px) 50vw, 33vw" style={{ objectFit: "cover", transition: "transform 0.6s ease" }} />
           </div>
 
           {/* Image 4 — bottom center, wide */}
-          <div
-            className="gallery-item-wide"
-            style={{
-              position: "relative",
-              overflow: "hidden",
-              cursor: "pointer",
-            }}
-            onMouseEnter={(e) => {
-              const img = e.currentTarget.querySelector("img");
-              if (img) img.style.transform = "scale(1.06)";
-            }}
-            onMouseLeave={(e) => {
-              const img = e.currentTarget.querySelector("img");
-              if (img) img.style.transform = "scale(1)";
-            }}
+          <div className="gallery-item-wide" style={{ position: "relative", overflow: "hidden", cursor: "pointer" }}
+            onMouseEnter={(e) => { const img = e.currentTarget.querySelector("img"); if (img) img.style.transform = "scale(1.06)"; }}
+            onMouseLeave={(e) => { const img = e.currentTarget.querySelector("img"); if (img) img.style.transform = "scale(1)"; }}
           >
-            <Image
-              src={galleryImages[4].src}
-              alt={galleryImages[4].alt}
-              fill
-              sizes="(max-width: 768px) 100vw, 66vw"
-              style={{ objectFit: "cover", transition: "transform 0.6s ease" }}
-            />
+            <Image src={galleryImages[3]?.src ?? galleryImages[0].src} alt={galleryImages[3]?.alt ?? ""} fill sizes="(max-width: 768px) 100vw, 66vw" style={{ objectFit: "cover", transition: "transform 0.6s ease" }} />
           </div>
         </motion.div>
 
