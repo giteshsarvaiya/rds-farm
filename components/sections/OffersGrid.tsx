@@ -6,10 +6,10 @@ import OffersPopup, { OfferItem } from "@/components/ui/OffersPopup";
 
 interface OffersGridProps {
   offers: OfferItem[];
+  whatsappNumber?: string;
 }
 
-/** Client-side offer grid with popup slideshow on card click. */
-export default function OffersGrid({ offers }: OffersGridProps) {
+export default function OffersGrid({ offers, whatsappNumber }: OffersGridProps) {
   const [popupIndex, setPopupIndex] = useState<number | null>(null);
 
   return (
@@ -67,6 +67,7 @@ export default function OffersGrid({ offers }: OffersGridProps) {
           activeIndex={popupIndex}
           onClose={() => setPopupIndex(null)}
           onNavigate={setPopupIndex}
+          whatsappNumber={whatsappNumber}
         />
       )}
     </>

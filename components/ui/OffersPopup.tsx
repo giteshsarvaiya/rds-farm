@@ -19,15 +19,15 @@ interface OffersPopupProps {
   activeIndex: number;
   onClose: () => void;
   onNavigate: (index: number) => void;
+  whatsappNumber?: string;
 }
-
-const WHATSAPP_BASE = "https://wa.me/919876543210?text=";
 
 export default function OffersPopup({
   offers,
   activeIndex,
   onClose,
   onNavigate,
+  whatsappNumber = "919876543210",
 }: OffersPopupProps) {
   const offer = offers[activeIndex];
   const multiple = offers.length > 1;
@@ -55,8 +55,7 @@ export default function OffersPopup({
     return () => { document.body.style.overflow = ""; };
   }, []);
 
-  const whatsappUrl =
-    WHATSAPP_BASE + encodeURIComponent(`I'm interested in the ${offer.title} package`);
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`I'm interested in the ${offer.title} package`)}`;
 
   return (
     <>
@@ -69,7 +68,6 @@ export default function OffersPopup({
           display: flex;
           align-items: center;
           justify-content: center;
-          /* visible gap around card on mobile */
           padding: 3rem 1rem;
         }
         @media (min-width: 640px) {
@@ -85,7 +83,6 @@ export default function OffersPopup({
           overflow: hidden;
           display: flex;
           flex-direction: column;
-          /* Mobile: compact floating card */
           max-height: 100%;
         }
         @media (min-width: 640px) {
@@ -98,7 +95,6 @@ export default function OffersPopup({
         .op-image-pane {
           position: relative;
           width: 100%;
-          /* Mobile: image is ~42% of viewport height */
           height: 42vw;
           min-height: 180px;
           max-height: 240px;
@@ -128,7 +124,6 @@ export default function OffersPopup({
           .op-description { display: block; }
         }
 
-        /* Nav bar: arrows + dots together */
         .op-nav {
           display: flex;
           align-items: center;
@@ -157,12 +152,9 @@ export default function OffersPopup({
         }
       `}</style>
 
-      {/* Backdrop */}
       <div className="op-backdrop" onClick={onClose}>
-        {/* Card */}
         <div className="op-card" onClick={(e) => e.stopPropagation()}>
 
-          {/* ── Image pane ── */}
           <div className="op-image-pane">
             <Image
               src={offer.image}
@@ -172,13 +164,11 @@ export default function OffersPopup({
               style={{ objectFit: "cover" }}
               priority
             />
-            {/* bottom fade into card bg */}
             <div style={{
               position: "absolute", inset: 0,
               background: "linear-gradient(to bottom, transparent 55%, rgba(28,26,23,0.55) 100%)",
             }} />
 
-            {/* Tag */}
             <span style={{
               position: "absolute", top: "0.75rem", left: "0.75rem",
               padding: "0.2rem 0.6rem",
@@ -190,7 +180,6 @@ export default function OffersPopup({
               {offer.tag}
             </span>
 
-            {/* Close — top-right of image */}
             <button
               onClick={onClose}
               aria-label="Close"
@@ -207,10 +196,8 @@ export default function OffersPopup({
             </button>
           </div>
 
-          {/* ── Content pane ── */}
           <div className="op-content-pane">
 
-            {/* Property label */}
             {offer.property && (
               <p style={{
                 fontFamily: "var(--font-inter), Inter, sans-serif",
@@ -222,7 +209,6 @@ export default function OffersPopup({
               </p>
             )}
 
-            {/* Title */}
             <h2 style={{
               fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
               fontSize: "clamp(1.05rem, 4vw, 1.55rem)",
@@ -233,7 +219,6 @@ export default function OffersPopup({
               {offer.title}
             </h2>
 
-            {/* Description — desktop only */}
             <p className="op-description" style={{
               fontFamily: "var(--font-inter), Inter, sans-serif",
               fontSize: "0.8rem", lineHeight: 1.6,
@@ -243,7 +228,6 @@ export default function OffersPopup({
               {offer.description}
             </p>
 
-            {/* Highlights */}
             <ul style={{
               listStyle: "none", display: "flex", flexDirection: "column",
               gap: "0.3rem", marginBottom: "auto",
@@ -263,7 +247,6 @@ export default function OffersPopup({
               ))}
             </ul>
 
-            {/* CTA */}
             <a
               href={whatsappUrl}
               target="_blank"
@@ -286,7 +269,6 @@ export default function OffersPopup({
               Get in Touch on WhatsApp
             </a>
 
-            {/* ── Nav: arrows + dots below CTA ── */}
             {multiple && (
               <div className="op-nav">
                 <button onClick={prev} aria-label="Previous offer" className="op-nav-arrow">

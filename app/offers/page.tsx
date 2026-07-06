@@ -1,7 +1,9 @@
 import Image from "next/image";
 import CTABanner from "@/components/sections/CTABanner";
+import OffersGrid from "@/components/sections/OffersGrid";
 import { client, urlFor } from "@/lib/sanity";
 import { activeOffersQuery, siteSettingsQuery } from "@/lib/queries";
+import type { OfferItem } from "@/components/ui/OffersPopup";
 
 export const revalidate = 3600;
 
@@ -25,16 +27,14 @@ export default async function OffersPage() {
 
   const whatsapp = siteSettings?.whatsappNumber ?? "919876543210";
 
-  const offers = (rawOffers ?? []).map((o: any) => ({
-    _id: o._id,
+  const offers: OfferItem[] = (rawOffers ?? []).map((o: any) => ({
     title: o.title,
     description: o.description ?? "",
-    imageUrl: o.image
+    image: o.image
       ? urlFor(o.image).width(800).quality(80).url()
       : "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80",
-    property: PROPERTY_LABELS[o.property] ?? o.property ?? "",
-    ctaText: o.ctaText ?? "Get in Touch",
-    tag: o.tag ?? null,
+    property: PROPERTY_LABELS[o.property] ?? o.property ?? undefined,
+    tag: o.tag ?? "Offer",
     highlights: o.highlights ?? [],
   }));
 
@@ -81,56 +81,7 @@ export default async function OffersPage() {
               No offers available right now. Check back soon.
             </p>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {offers.map((offer: typeof offers[number]) => (
-                <div key={offer._id} className="bg-[#FAF7F2] group overflow-hidden">
-                  <div className="relative h-56 overflow-hidden">
-                    <Image
-                      src={offer.imageUrl}
-                      alt={offer.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    {offer.tag && (
-                      <span className="absolute top-4 left-4 bg-[#B8976A] text-[#F5EFE4] font-inter text-xs uppercase tracking-widest px-3 py-1">
-                        {offer.tag}
-                      </span>
-                    )}
-                  </div>
-                  <div className="p-6">
-                    {offer.property && (
-                      <p className="text-[#B8976A] font-inter text-xs uppercase tracking-widest mb-2">
-                        {offer.property}
-                      </p>
-                    )}
-                    <h3 className="font-playfair text-[#1C1A17] text-xl mb-3">{offer.title}</h3>
-                    {offer.description && (
-                      <p className="text-[#7A6F62] font-inter text-sm leading-relaxed mb-4">
-                        {offer.description}
-                      </p>
-                    )}
-                    {offer.highlights.length > 0 && (
-                      <ul className="space-y-1 mb-6">
-                        {offer.highlights.map((h: string) => (
-                          <li key={h} className="text-[#7A6F62] font-inter text-xs flex items-center gap-2">
-                            <span className="w-1 h-1 rounded-full bg-[#B8976A] inline-block flex-shrink-0" />
-                            {h}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    <a
-                      href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(`I'm interested in the ${offer.title} package`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-center bg-[#2D5F4F] text-[#F5EFE4] font-inter font-semibold uppercase tracking-widest text-xs px-6 py-3 hover:opacity-90 transition-all duration-300"
-                    >
-                      {offer.ctaText}
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <OffersGrid offers={offers} whatsappNumber={whatsapp} />
           )}
         </div>
       </section>

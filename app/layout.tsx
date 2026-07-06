@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { client } from "@/lib/sanity";
 import { siteSettingsQuery, propertyNavQuery } from "@/lib/queries";
+import OffersAutoPopupServer from "@/components/ui/OffersAutoPopupServer";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -62,6 +63,7 @@ export default async function RootLayout({
           whatsappNumber={siteSettings?.whatsappNumber}
         />
         <main>{children}</main>
+        <OffersAutoPopupServer />
         <Footer
           phone={siteSettings?.phone}
           email={siteSettings?.email}
