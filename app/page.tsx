@@ -6,6 +6,7 @@ import ExperiencesSection from "@/components/sections/ExperiencesSection";
 import GallerySection from "@/components/sections/GallerySection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import CTABanner from "@/components/sections/CTABanner";
+import OffersAutoPopup from "@/components/ui/OffersAutoPopup";
 import { client, urlFor } from "@/lib/sanity";
 import {
   propertiesQuery,
@@ -101,6 +102,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <OffersAutoPopup />
       <HeroSection
         imageUrl={heroImageUrl}
         eyebrow={heroEyebrow}
