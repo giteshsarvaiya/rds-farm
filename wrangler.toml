@@ -6,6 +6,7 @@ main = ".open-next/worker.js"
 [vars]
 NEXT_PUBLIC_SANITY_PROJECT_ID = "i203g7ij"
 NEXT_PUBLIC_SANITY_DATASET = "production"
+NEXT_PUBLIC_SITE_URL = "https://rdsvenues.com"
 
 [[kv_namespaces]]
 binding = "NEXT_INC_CACHE_KV"
