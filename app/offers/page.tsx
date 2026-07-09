@@ -36,6 +36,7 @@ export default async function OffersPage() {
     property: PROPERTY_LABELS[o.property] ?? o.property ?? undefined,
     tag: o.tag ?? "Offer",
     highlights: o.highlights ?? [],
+    validUntil: o.validUntil ?? undefined,
   }));
 
   return (

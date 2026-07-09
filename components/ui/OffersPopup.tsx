@@ -2,7 +2,38 @@
 
 import { useEffect, useCallback } from "react";
 import Image from "next/image";
+import confetti from "canvas-confetti";
 import { X, ChevronLeft, ChevronRight, MessageCircle } from "lucide-react";
+import OfferCountdown from "./OfferCountdown";
+
+const BRAND_CONFETTI_COLORS = ["#B8976A", "#2D5F4F", "#F5EFE4"];
+
+function fireBrandConfetti() {
+  const end = Date.now() + 700;
+
+  (function frame() {
+    confetti({
+      particleCount: 3,
+      angle: 60,
+      spread: 55,
+      startVelocity: 55,
+      origin: { x: 0, y: 0.7 },
+      colors: BRAND_CONFETTI_COLORS,
+      zIndex: 1100,
+    });
+    confetti({
+      particleCount: 3,
+      angle: 120,
+      spread: 55,
+      startVelocity: 55,
+      origin: { x: 1, y: 0.7 },
+      colors: BRAND_CONFETTI_COLORS,
+      zIndex: 1100,
+    });
+
+    if (Date.now() < end) requestAnimationFrame(frame);
+  })();
+}
 
 export interface OfferItem {
   title: string;
@@ -12,6 +43,7 @@ export interface OfferItem {
   alt?: string;
   tag: string;
   property?: string;
+  validUntil?: string;
 }
 
 interface OffersPopupProps {
@@ -53,6 +85,12 @@ export default function OffersPopup({
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = ""; };
+  }, []);
+
+  // Fires once when the popup first opens, not on every offer navigation
+  // (the component stays mounted while browsing between offers).
+  useEffect(() => {
+    fireBrandConfetti();
   }, []);
 
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`I'm interested in the ${offer.title} package`)}`;
@@ -208,6 +246,8 @@ export default function OffersPopup({
                 {offer.property}
               </p>
             )}
+
+            <OfferCountdown validUntil={offer.validUntil} />
 
             <h2 style={{
               fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",

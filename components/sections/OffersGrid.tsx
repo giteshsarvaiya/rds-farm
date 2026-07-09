@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import OffersPopup, { OfferItem } from "@/components/ui/OffersPopup";
+import OfferCountdown from "@/components/ui/OfferCountdown";
 
 interface OffersGridProps {
   offers: OfferItem[];
@@ -41,6 +42,7 @@ export default function OffersGrid({ offers, whatsappNumber }: OffersGridProps) 
                   {offer.property}
                 </p>
               )}
+              <OfferCountdown validUntil={offer.validUntil} variant="light" />
               <h3 className="font-playfair text-[#1C1A17] text-xl mb-3">{offer.title}</h3>
               <p className="text-[#7A6F62] font-inter text-sm leading-relaxed mb-4 line-clamp-3">
                 {offer.description}

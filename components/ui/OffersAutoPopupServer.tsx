@@ -24,6 +24,7 @@ export default async function OffersAutoPopupServer() {
       image: urlFor(o.image).width(800).quality(80).url(),
       tag: o.tag ?? "Offer",
       property: PROPERTY_LABELS[o.property] ?? o.property ?? undefined,
+      validUntil: o.validUntil ?? undefined,
     }));
 
   if (!offers.length) return null;
