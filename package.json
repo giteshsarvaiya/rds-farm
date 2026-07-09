@@ -9,7 +9,7 @@
     "lint": "next lint",
     "cf:build": "opennextjs-cloudflare build",
     "cf:preview": "opennextjs-cloudflare build && wrangler dev",
-    "cf:deploy": "opennextjs-cloudflare build && wrangler deploy"
+    "cf:deploy": "opennextjs-cloudflare build && wrangler deploy && node scripts/revalidate-after-deploy.mjs"
   },
   "dependencies": {
     "@sanity/client": "^7.23.0",
