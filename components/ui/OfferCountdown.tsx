@@ -26,6 +26,14 @@ function pad(n: number): string {
   return n.toString().padStart(2, "0");
 }
 
+function formatEndDate(target: number): string {
+  return new Date(target).toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
+
 interface OfferCountdownProps {
   validUntil?: string;
   /** "dark" for the near-black popup card, "light" for the cream grid card. */
@@ -140,6 +148,18 @@ export default function OfferCountdown({ validUntil, variant = "dark" }: OfferCo
           </div>
         ))}
       </div>
+
+      <p
+        style={{
+          fontFamily: "var(--font-inter), Inter, sans-serif",
+          fontSize: "0.65rem",
+          letterSpacing: "0.02em",
+          color: mutedColor,
+          margin: 0,
+        }}
+      >
+        Offer ends {formatEndDate(target)}
+      </p>
     </div>
   );
 }
