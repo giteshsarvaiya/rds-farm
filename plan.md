@@ -348,8 +348,8 @@ Define content types for all client-managed content.
 
 - [ ] All images served via `cdn.sanity.io` (no `next/image` optimizer — not needed)
 - [ ] Sanity `@sanity/image-url` with width/quality params per use case
-- [ ] ISR on all content pages (`revalidate: 3600`)
-- [ ] Sanity webhook → `/api/revalidate` route → `revalidatePath()` on content change
+- [x] ~~ISR on all content pages (`revalidate: 3600`)~~ — implemented, then reverted: traffic and update frequency don't justify the caching complexity. All pages render fully dynamic (`force-dynamic`), fetching live from Sanity on every request.
+- [x] ~~Sanity webhook → `/api/revalidate` route → `revalidatePath()` on content change~~ — removed along with ISR; nothing to revalidate under fully dynamic rendering.
 - [ ] Font optimization (`next/font`)
 - [ ] No unnecessary client components — keep everything Server Components by default
 - [ ] Lazy load gallery images (intersection observer or native `loading="lazy"`)
